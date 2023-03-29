@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     //punto de entrada
@@ -22,6 +23,7 @@ module.exports = {
     module: {
         //reglas que establecemos para trabajar con diferentes archivos
         rules: [
+            //babel-loader
             {
                 //que tipo de extensiones vamos a utilizar
                 //expresion regular: cualquier archivo que empieze con .m o .js
@@ -31,6 +33,11 @@ module.exports = {
                 use: {
                     loader: 'babel-loader'
                 }
+            },
+            //css
+            {
+                test: /\.css|styl$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             }
         ]
     },
@@ -40,6 +47,7 @@ module.exports = {
             inject: true,
             template: './public/index.html',
             filename: './index.html'
-        })
+        }),
+        new MiniCssExtractPlugin(),
     ]
 }

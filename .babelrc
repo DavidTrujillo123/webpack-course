@@ -1,0 +1,10 @@
+//Objeto con las configuraciónes
+{
+    "presets": [
+        "@babel/preset-env"
+    ],
+    "plugins": [
+        "@babel/plugin-transform-runtime"
+    ]
+}
+//debemos modificar webpack.config.js para agregar las configuraciones

@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     //punto de entrada
@@ -13,7 +15,7 @@ module.exports = {
         path: path.resolve
         (__dirname, 'dist'),
         //Archivo resultante
-        filename: 'main.js',
+        filename: '[name].[contenthash].js',
     } ,
     resolve:{
         //extenciones con las que vamos a trabajar
@@ -45,23 +47,16 @@ module.exports = {
                 test: /\.png/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'static/images/[hash][ext][query]'
+                    filename: 'assets/images/[hash][ext][query]'
                     
                 }
             },
             //fonts
             {
                 test: /\.(woff|woff2)$/,
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 10000,
-                        mimetype: "aplication/font-woff",
-                        name: "[name].[ext]",
-                        outputPath: "./assets/fonts",
-                        publicPath: "./assets/fonts",
-                        esModule: false,
-                    },
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/fonts/[name].[hash][ext][query]'
                 }
             },
         ]
@@ -73,7 +68,9 @@ module.exports = {
             template: './public/index.html',
             filename: './index.html'
         }),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'assets/[name].[contenthash].css'
+        }),
         new CopyPlugin(
             {
                 patterns: [
@@ -84,5 +81,13 @@ module.exports = {
                 ]
             }
         ),
-    ]
+    ],
+    //optimizacion
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+            new TerserPlugin()
+        ]
+    }
 }

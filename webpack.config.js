@@ -20,7 +20,14 @@ module.exports = {
     resolve:{
         //extenciones con las que vamos a trabajar
         //pueden variar con svelt, react
-        extensions: ['.js']
+        extensions: ['.js'],
+        //Alias
+        alias: {
+            '@utils': path.resolve(__dirname, './src/utils'),
+            '@images': path.resolve(__dirname, './src/assets/images'),
+            '@templates': path.resolve(__dirname, './src/templates'),
+            '@styles': path.resolve(__dirname, './src/styles'),
+        }
     },
     //loaders
     module: {

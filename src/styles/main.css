@@ -15,7 +15,7 @@ html {
 }
 
 body {
-	margin: 0
+	margin: 0;
 }
 
 article,
@@ -290,7 +290,7 @@ body {
 }
 
 .card_value {
-	color: #2c2e31;
+	color: black;
 	font-size: 38px;
 	margin: 5px;
 	text-transform: capitalize

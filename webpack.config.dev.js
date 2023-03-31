@@ -90,4 +90,16 @@ module.exports = {
         ),
         new Dotenv(),
     ],
+    devServer: {
+        static: 
+        {
+            directory: path.join(__dirname, "dist"),
+            watch: true,
+        },
+        watchFiles: path.join(__dirname, "./**"), //observa los cambios en todos nuestros archivos y actualiza el navegador
+        compress: true,
+        historyApiFallback: true,
+        port: 8080,
+        open: true,//Abrir navegador 
+    },
 }
